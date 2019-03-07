@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lifecycle</title>
+
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+        <!-- js -->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <section id="app" class="section container">
+            {{count}}
+
+            <a class="button is-info" @click="increment">Increment</a>
+            <a class="button is-danger" @click="decrement">Decrement</a>
+        </section>
+        <script>
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    count: 0
+                },
+                methods: {
+                    increment: function() {
+                        this.count++;
+                    },
+                    decrement: function() {
+                        this.count--;
+                    }
+                },
+                created: function() {
+                    console.log("in created");
+                    this.increment();
+                }
+            });
+        </script>
+    </body>
+</html>

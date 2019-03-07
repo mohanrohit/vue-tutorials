@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Forms</title>
+
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+        <!-- js -->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div class="hero is-fullheight is-info is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <h3 class="title has-text-centered">Forms</h3>
+                    <div class="box">
+                        <form id="signup-form" @submit.prevent="processForm">
+                            <div class="field">
+                                <label for="name" class="label">Name</label>
+                                <input type="text" class="input" name="name" v-model="name">
+                            </div>
+                            <div class="field">
+                                <label for="email" class="label">Email</label>
+                                <input type="text" class="input" name="email" v-model="email" @blur="validateEmail">
+                                <p class="help is-danger" v-if="errors.email">Please enter a valid email</p>
+                            </div>
+                            <div class="field has-text-right">
+                                <button class="button is-success">Submit</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function isEmailValid(email)
+            {
+                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      
+                return re.test(email);
+            }
+            
+            const app = new Vue({
+                el: "#signup-form",
+                data: {
+                    name: "Rohit",
+                    email: "rohit.mohan@alumni.brown.edu",
+                    errors: {
+                        name: false,
+                        email: false
+                    }
+                },
+                methods: {
+                    processForm: function() {
+                        console.log({name: this.name, email: this.email});
+                        alert("processing form");
+                    },
+                    validateEmail: function() {
+                        this.errors.email = !isEmailValid(this.email);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Crazy button</title>
+
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+        <style>
+            .is-crazy
+            {
+                position: absolute;
+                transition: 0.3s ease all;
+            }
+        </style>
+        <!-- js -->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+
+    <section id="app" class="section container">
+        <a class="button is-info is-crazy" :style="location" @mouseenter="moveButton">Catch me if you can!</a>
+    </section>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                location: {
+                    top: null,
+                    left: null
+                }
+            },
+            methods: {
+                moveButton: function(e) {
+                    this.location.top = `${Math.random() * window.innerHeight}px`;
+                    this.location.left = `${Math.random() * window.innerWidth}px`;
+                }
+            }
+        });
+    </script>
+    </body>
+</html>

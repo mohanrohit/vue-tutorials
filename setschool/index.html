@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Registration</title>
+
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+        <!-- js -->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <section id="app" class="section container">
+            <div class="hero hero-body container is-info is-fullheight">
+                <div class="box">
+                    <form>
+                        <div class="field">
+                            <label for="firstName" class="label">* First name</label>
+                            <input type="text" id="firstName" class="input" v-model="student.firstName" @blur="validateFirstName">
+                            <p class="help is-danger" v-if="validationErrors.firstName">The student's first name is required.</p>
+                        </div>
+                        <div class="field">
+                            <label for="lastName" class="label">* Last name</label>
+                            <input type="text" id="lastName" class="input" v-model="student.lastName" @blur="validateLastName">
+                            <p class="help is-danger" v-if="validationErrors.lastName">The student's last name is required.</p>
+                        </div>
+                        <div class="field">
+                            <a class="button is-success" @click="registerStudent">Register</a>
+                        </div>
+
+                        
+                    </form>
+
+                    <div id="notification" v-if="registered">
+                        Student {{student.firstName}} {{student.lastName}} registered.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    student: {
+                        firstName: "",
+                        lastName: "",
+                        birthDate: "",
+                        grade: "",
+                        address: {
+                            street: "",
+                            city: "",
+                            state: "",
+                            zip: ""
+                        },
+                        homePhone: "",
+                        mobilePhone: ""
+                    },
+                    registered: false,
+                    validationErrors: {
+                        firstName: false,
+                        lastName: false
+                    }
+                },
+                methods: {
+                    registerStudent: function() {
+                        this.registered = true;
+                    },
+                    validateFirstName: function() {
+                        console.log("validating first name");
+                        if (this.student.firstName == "")
+                        {
+                            this.validationErrors.firstName = true;
+                        }
+                    },
+                    validateLastName: function() {
+                        console.log("validating last name");
+                        if (this.student.lastName == "")
+                        {
+                            this.validationErrors.lastName = true;
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

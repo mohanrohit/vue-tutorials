@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>GIFs</title>
+
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+        <!-- js -->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <section id="app" class="section container">
+
+            <div class="box">
+                <form @submit.prevent="getDefinition">
+                    <div class="field">
+                        <label for="word" class="label"></label>
+                        <input type="text" id="word" class="input" v-model="word">
+                    </div>
+                    <div class="field">
+                        <a class="button is-success" @click="getDefinition">Search</a>
+                    </div>
+                </form>
+
+                <div id="definition" v-if="definition">
+                    {{definition}}
+                </div>
+            </div>
+        </section>
+        <script>
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    apiUrl: "https://www.dictionaryapi.com/api/v3/references/collegiate/json",
+                    apiKey: "67e327bd-2354-4c12-ba32-6a0ae735e900",
+                    word: "",
+                    definition: ""
+                },
+                methods: {
+                    getDefinition: function() {
+                        const url = `${this.apiUrl}/${this.word}?key=${this.apiKey}`;
+
+                        fetch(url).
+                            then(response => response.json()).
+                            then(data => {
+                                this.definition = data[0].shortdef;
+                            });
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
